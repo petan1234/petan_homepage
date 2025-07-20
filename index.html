@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ぺたん公式ポータルサイト</title>
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
@@ -538,13 +539,13 @@
                     <a href="https://petan1234.github.io/petan-pomo-timer/" class="btn" target="_blank">遊ぶ</a>
                 </div>
                 <div class="card">
-                    <div class="card-thumbnail"><img src="https://via.placeholder.com/300x200?text=Game+Thumbnail+2" alt="ゲームサムネイル"></div>
+                    <div class="card-thumbnail"><img src="petan.png" alt="ゲームサムネイル"></div>
                     <h3>ぺたんのパズルアドベンチャー</h3>
                     <p>魔法の世界でぺたんと一緒に謎を解く、心温まるパズルゲーム。開発中！</p>
                     <a href="#" class="btn">詳細</a>
                 </div>
                 <div class="card">
-                    <div class="card-thumbnail"><img src="https://via.placeholder.com/300x200?text=Game+Thumbnail+3" alt="ゲームサムネイル"></div>
+                    <div class="card-thumbnail"><img src="petan.png" alt="ゲームサムネイル"></div>
                     <h3>ぺたんのゆるふわ育成ゲーム</h3>
                     <p>ぺたんを育てて、癒やしの毎日を過ごそう。まったり楽しめる育成シミュレーション。開発中！</p>
                     <a href="#" class="btn">詳細</a>
@@ -670,11 +671,14 @@
         // スムーズスクロール
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const href = this.getAttribute('href');
+                // hrefが'#'だけでない、かつアンカーリンクに対応する要素が存在する場合のみ実行
+                if (href && href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
