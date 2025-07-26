@@ -247,6 +247,42 @@
             color: var(--text-color);
         }
 
+        /* --- 吹き出しスタイル (雲っぽく) --- */
+        .speech-bubble {
+            position: relative;
+            background: #ffffff; /* 白背景で雲っぽさを強調 */
+            /* 雲のような、もこもこした角丸 */
+            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+            padding: 20px 25px;
+            margin: 30px auto 0;
+            max-width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); /* 影を調整 */
+            text-align: center;
+            font-weight: 700;
+            color: var(--accent-color);
+            font-style: normal;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .speech-bubble:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            border-radius: 50% 60% 40% 50% / 60% 40% 70% 30%; /* ホバーで形が少し変わる */
+        }
+
+        .speech-bubble::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 12px 12px 12px;
+            border-color: transparent transparent #ffffff transparent; /* 背景色と合わせる */
+        }
+
         .card-thumbnail {
             width: 100%;
             height: 200px;
@@ -265,6 +301,33 @@
             height: 100%;
             object-fit: cover;
         }
+
+        /* --- プロフィール紹介のカードをパンのように --- */
+        #profile .card {
+            text-align: center;
+            line-height: 1.8;
+            background-color: var(--bg-gradient-start); /* 暖かみのあるクリーム色 */
+            border-radius: 40% 60% 50% 50% / 60% 40% 50% 50%; /* 柔らかいパンのような形 */
+            padding: 50px 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05); /* 柔らかい影 */
+            transition: all 0.8s ease;
+            animation: gentleFloat 20s ease-in-out infinite alternate; /* 非常にゆっくりとした浮遊感 */
+            backdrop-filter: none; /* ぼかしをなくす */
+        }
+
+        #profile .card:hover {
+            transform: translateY(-5px) rotate(0.5deg);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.07);
+            border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%; /* ホバーで形がわずかに変化 */
+        }
+
+        @keyframes gentleFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(-0.5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* 以前の吹き出しのしっぽのCSSは削除します */
 
         /* --- ゲーム一覧 --- */
         #games .grid {
@@ -385,32 +448,46 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: var(--main-color);
-            color: #fff;
-            border: none;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0,0,0,0.05);
+            color: var(--accent-color);
             border-radius: 50%;
-            width: 55px; /* 少し大きく */
-            height: 55px; /* 少し大きく */
-            font-size: 1.8rem; /* 少し大きく */
+            width: 55px;
+            height: 55px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 5px 15px var(--shadow-soft);
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             opacity: 0;
             visibility: hidden;
             z-index: 90;
+            transform: translateY(20px) scale(0.95);
+        }
+
+        .scroll-top-btn svg {
+            width: 26px;
+            height: 26px;
+            transition: transform 0.4s ease;
         }
 
         .scroll-top-btn.show {
             opacity: 1;
             visibility: visible;
+            transform: translateY(0) scale(1);
         }
 
         .scroll-top-btn:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-5px); /* 少し浮き上がる */
+            background: #fff;
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            color: var(--main-color);
+        }
+
+        .scroll-top-btn:hover svg {
+            transform: scale(1.1);
         }
 
         /* --- レスポンシブ対応 --- */
@@ -493,6 +570,15 @@
         }
 
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZXREN6154"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JZXREN6154');
+    </script>
 </head>
 <body>
 
@@ -502,9 +588,9 @@
             <a href="#" class="logo">ぺたん公式サイト</a>
             <nav class="nav-links">
                 <a href="#games">ゲーム</a>
-                <a href="#videos">動画</a>
+                <a href="#apps">アプリ</a>
+                <a href="#anime">アニメ</a>
                 <a href="#profile">ぺたんとは？</a>
-                <a href="#sns">SNS</a>
                 <a href="#contact">お問い合わせ</a>
             </nav>
         </div>
@@ -533,12 +619,6 @@
                     <a href="https://petan1234.github.io/petan_taipinggame/petan_game.html" class="btn" target="_blank">遊ぶ</a>
                 </div>
                 <div class="card">
-                    <div class="card-thumbnail"><img src="petan_sleeping.png" alt="ぺたんのポモドーロタイマーサムネイル"></div>
-                    <h3>ぺたんのポモドーロタイマー</h3>
-                    <p>ぺたんと一緒に作業に集中できる、癒やし系のポモドーロタイマーです。Flutterで開発中！</p>
-                    <a href="https://petan1234.github.io/petan-pomo-timer/" class="btn" target="_blank">遊ぶ</a>
-                </div>
-                <div class="card">
                     <div class="card-thumbnail"><img src="petan.png" alt="ゲームサムネイル"></div>
                     <h3>ぺたんのパズルアドベンチャー</h3>
                     <p>魔法の世界でぺたんと一緒に謎を解く、心温まるパズルゲーム。開発中！</p>
@@ -553,36 +633,49 @@
             </div>
         </section>
 
+        <!-- アプリ一覧 -->
+        <section id="apps" class="container">
+            <h2>ぺたんのアプリ</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-thumbnail"><img src="petan_sleeping.png" alt="ぺたんのポモドーロタイマーサムネイル"></div>
+                    <h3>ぺたんのポモドーロタイマー</h3>
+                    <p>ぺたんと一緒に作業に集中できる、癒やし系のポモドーロタイマーです。Flutterで開発中！</p>
+                    <a href="https://petan1234.github.io/petan-pomo-timer/" class="btn" target="_blank">遊ぶ</a>
+                </div>
+            </div>
+        </section>
+
         <div class="section-divider bottom">
             <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
                 <path d="M0,60 C150,100 350,0 500,60 C650,100 850,0 1000,60 L1000,100 L0,100 Z" fill="var(--bg-gradient-start)"></path>
             </svg>
         </div>
 
-        <!-- アニメ・動画一覧 -->
-        <section id="videos" class="container">
+        <!-- アニメ一覧 -->
+        <section id="anime" class="container">
             <h2>ぺたんのアニメ</h2>
             <div class="grid">
                 <div class="card">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/jUh2dFaPXnM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <h3>ぺたんショートアニメ #1 「はじまり」</h3>
-                    <p>ぺたんが初めて魔法を使った日のお話。ゆるくて癒やされる日常アニメ。</p>
+                    <h3>パンを落としたら…</h3>
+                    <p class="speech-bubble">あ…パン、落としちゃった。</p>
                 </div>
                 <div class="card">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/0j6Aaf0kuuE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <h3>ぺたんの魔法レッスン</h3>
-                    <p>ぺたんが魔法のコツを教えちゃう！？不思議な世界をのぞいてみよう。</p>
+                    <h3>釣りをしていたら…</h3>
+                    <p class="speech-bubble">今日のごはんは、おさかなかな？</p>
                 </div>
                 <div class="card">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/7VtP32aNHKQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <h3>ぺたんの日常Vlog</h3>
-                    <p>ぺたんのゆるい日常をVlog形式でお届け。作業のお供にどうぞ。</p>
+                    <h3>ぺたん鳥をパンだと思う</h3>
+                    <p class="speech-bubble">おいしそうなパンだなぁ</p>
                 </div>
             </div>
         </section>
@@ -598,50 +691,14 @@
             <h2>ぺたんとは？</h2>
             <div class="card">
                 <p>
-                    どこかの世界でのんびり暮らしている、すこし不思議な二足立ちのねこです。<br>
+                    どこかの世界でのんびり暮らしている、すこし不思議なねこです。<br>
                     おいしいものを食べたり、アプリを作ったり、たまに魔法の勉強をしたりしています。<br>
                     みんなの毎日が、ちょっぴり癒やされるようなお手伝いができたら嬉しいです。
                 </p>
-                <p>
-                    ぺたんは、魔法の力で人々の心を癒やすことを使命としています。普段はのんびりしていますが、困っている人がいるとそっと寄り添い、不思議な魔法で解決の手助けをします。お気に入りの魔法は、みんなを笑顔にする「ふわふわ笑顔の魔法」です。
-                </p>
             </div>
         </section>
 
-        <div class="section-divider bottom">
-            <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
-                <path d="M0,60 C150,100 350,0 500,60 C650,100 850,0 1000,60 L1000,100 L0,100 Z" fill="var(--bg-gradient-start)"></path>
-            </svg>
-        </div>
-
-        <!-- SNSリンク -->
-        <section id="sns" class="container">
-            <h2>ぺたんのSNS</h2>
-            <div class="grid">
-                <a href="#" target="_blank">
-                    <span class="icon">🐦</span> <!-- X (Twitter) の仮アイコン -->
-                    X (Twitter)
-                </a>
-                <a href="#" target="_blank">
-                    <span class="icon">📸</span> <!-- Instagram の仮アイコン -->
-                    Instagram
-                </a>
-                <a href="#" target="_blank">
-                    <span class="icon">🎵</span> <!-- TikTok の仮アイコン -->
-                    TikTok
-                </a>
-                <a href="#" target="_blank">
-                    <span class="icon">▶️</span> <!-- YouTube の仮アイコン -->
-                    YouTube
-                </a>
-            </div>
-        </section>
-
-        <div class="section-divider top">
-            <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
-                <path d="M0,40 C150,0 350,100 500,40 C650,0 850,100 1000,40 L1000,0 L0,0 Z" fill="var(--bg-gradient-start)"></path>
-            </svg>
-        </div>
+        
 
         <!-- お問い合わせ -->
         <section id="contact" class="container">
@@ -664,7 +721,9 @@
 
     <!-- ページトップへ戻るボタン -->
     <button id="scrollTopBtn" class="scroll-top-btn">
-        ⬆️
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
     </button>
 
     <script>
